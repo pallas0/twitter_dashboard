@@ -2,6 +2,12 @@ package swim.tutorial;
 
 import swim.api.ref.WarpRef;
 import swim.structure.Record;
+import java.util.HashSet;
+import java.util.Set;
+import com.twitter.clientlib.TwitterCredentialsOAuth2;
+import com.twitter.clientlib.ApiException;
+import com.twitter.clientlib.api.TwitterApi;
+import com.twitter.clientlib.model.*;
 
 /**
  * Simple wrapper around some {@code SwimRef}, e.g. a {@code SwimClient} handle,
