@@ -16,7 +16,7 @@ public class TutorialPlane extends AbstractPlane {
     final Kernel kernel = ServerLoader.loadServer();
 
     kernel.start();
-    DataSource.main(args);
+    //DataSource.main(args); //be sure to remove
     System.out.println("Running Tutorial plane...");
     kernel.run();
 
