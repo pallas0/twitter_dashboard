@@ -33,7 +33,7 @@ dependencies {
   implementation "com.twitter:twitter-api-java-sdk:2.0.3"
 }
 
-// application {
-//     // Define the main class for the application.
-//     mainClass = 'swim.tutorial.DataSource'
-// }
+application {
+    // Define the main class for the application.
+    mainClass = 'swim.tutorial.DataSource'
+}
