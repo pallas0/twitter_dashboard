@@ -4,10 +4,11 @@ import swim.api.ref.WarpRef;
 import swim.structure.Record;
 import java.util.HashSet;
 import java.util.Set;
-import com.twitter.clientlib.TwitterCredentialsOAuth2;
+//import com.twitter.clientlib.TwitterCredentialsOAuth2;
 import com.twitter.clientlib.ApiException;
 import com.twitter.clientlib.api.TwitterApi;
 import com.twitter.clientlib.model.*;
+import com.twitter.clientlib.TwitterCredentialsBearer;
 
 /**
  * Simple wrapper around some {@code SwimRef}, e.g. a {@code SwimClient} handle,
@@ -50,6 +51,46 @@ class DataSource {
 
       // Throttle events to four every three seconds
       Thread.sleep(750);
+    }
+  }
+
+  public static void main(String[] args) {
+    System.out.println("yo is this working");
+    /**
+     * Set the credentials for the required APIs.
+     * The Java SDK supports TwitterCredentialsOAuth2 & TwitterCredentialsBearer.
+     * Check the 'security' tag of the required APIs in https://api.twitter.com/2/openapi.json in order
+     * to use the right credential object.
+     */
+    TwitterApi apiInstance = new TwitterApi(new TwitterCredentialsBearer(System.getenv("AAAAAAAAAAAAAAAAAAAAAD26mQEAAAAAw%2FkNWI%2FMMBioPIapG1MRmCtXL7g%3DPc29nsmIldwPZmJkj7YwoqQYvfwEPYo4RSASOGOjv6yD4srCb1")));
+
+    Set<String> tweetFields = new HashSet<>();
+    tweetFields.add("author_id");
+    tweetFields.add("id");
+    tweetFields.add("created_at");
+
+    try {
+     // findTweetById
+     Get2TweetsIdResponse result = apiInstance.tweets().findTweetById("1646077203279642625")
+       .tweetFields(tweetFields)
+       .execute();
+     if(result.getErrors() != null && result.getErrors().size() > 0) {
+       System.out.println("Error:");
+
+       result.getErrors().forEach(e -> {
+         System.out.println(e.toString());
+         if (e instanceof ResourceUnauthorizedProblem) {
+           System.out.println(((ResourceUnauthorizedProblem) e).getTitle() + " " + ((ResourceUnauthorizedProblem) e).getDetail());
+         }
+       });
+     } else {
+       System.out.println("findTweetById - Tweet Text: " + result.toString());
+     }
+    } catch (ApiException e) {
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
     }
   }
 

@@ -16,6 +16,7 @@ public class TutorialPlane extends AbstractPlane {
     final Kernel kernel = ServerLoader.loadServer();
 
     kernel.start();
+    DataSource.main(args);
     System.out.println("Running Tutorial plane...");
     kernel.run();
 
@@ -25,6 +26,7 @@ public class TutorialPlane extends AbstractPlane {
     client.start();
     final DataSource ds = new DataSource(client, "warp://localhost:9001");
     ds.sendCommands();
+
   }
 
 }
