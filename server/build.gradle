@@ -30,7 +30,8 @@ repositories {
 dependencies {
   api group: 'org.swimos', name: 'swim-server', version: version
   api group: 'org.swimos', name: 'swim-client', version: version
-  implementation "com.twitter:twitter-api-java-sdk:2.0.3"
+  //implementation "com.twitter:twitter-api-java-sdk:2.0.2"
+  implementation "com.twitter:twitter-api-java-sdk:1.1.4"
 }
 
 application {

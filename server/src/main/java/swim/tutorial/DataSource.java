@@ -2,12 +2,16 @@ package swim.tutorial;
 
 import swim.api.ref.WarpRef;
 import swim.structure.Record;
-import java.util.HashSet;
-import java.util.Set;
-import com.twitter.clientlib.TwitterCredentialsBearer;
+// import java.util.HashSet;
+// import java.util.Set;
+import java.util.*;
+import com.twitter.clientlib.ApiClient;
 import com.twitter.clientlib.ApiException;
-import com.twitter.clientlib.api.TwitterApi;
+import com.twitter.clientlib.Configuration;
+import com.twitter.clientlib.auth.*;
 import com.twitter.clientlib.model.*;
+import com.twitter.clientlib.TwitterCredentialsBearer;
+import com.twitter.clientlib.api.TwitterApi;
 import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -73,13 +77,23 @@ class DataSource {
     String apiSecretKey = props.getProperty("api_secret_key");
     String bearerToken = props.getProperty("bearer_token");
 
+    // Instantiate library client
+TwitterApi apiInstance = new TwitterApi();
+ 
+// Instantiate auth credentials (App-only example)
+TwitterCredentialsBearer credentials = new TwitterCredentialsBearer(System.getenv(apiKey));
+ 
+// Pass credentials to library client
+apiInstance.setTwitterCredentials(credentials);
     // Use the values in your code
-    System.out.println("API Key: " + apiKey);
-    System.out.println("API Secret Key: " + apiSecretKey);
-    System.out.println("Bearer Token: " + bearerToken);
-
-    // TwitterApi apiInstance = new TwitterApi(new TwitterCredentialsBearer(System.getenv("AAAAAAAAAAAAAAAAAAAAAD26mQEAAAAAB4k8fymZdir8qK2uvh5xxwvIlwE%3DvN16pLFBzwUj1Gj1aAQK7HkmKRBGThXis33yMIVnUqEeoPuj4W")));
-
+    // System.out.println("API Key: " + apiKey);
+    // System.out.println("API Secret Key: " + apiSecretKey);
+    // System.out.println("Bearer Token: " + bearerToken);
+    
+    //pretty much everything down was wrestling w twitter API v2, above is our attempt w v1
+    //TwitterApi apiInstance = new TwitterApi(new TwitterCredentialsBearer(System.getenv(bearerToken)));
+ 
+}
     // Set<String> tweetFields = new HashSet<>();
     // tweetFields.add("author_id");
     // tweetFields.add("id");
@@ -87,7 +101,7 @@ class DataSource {
 
     // try {
     //  // findTweetById
-    //  Get2TweetsIdResponse result = apiInstance.tweets().findTweetById("1646217242651025410")
+    //  Get2TweetsIdResponse result = apiInstance.tweets().findTweetById("1647838825861840897")
     //   .tweetFields(tweetFields)
     //   .execute();
     //  if(result.getErrors() != null && result.getErrors().size() > 0) {
@@ -110,4 +124,4 @@ class DataSource {
     // }
   }
 
-}
+
