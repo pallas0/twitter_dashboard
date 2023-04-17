@@ -68,46 +68,44 @@ class DataSource {
     props.load(fis);
     fis.close();
 
-    // Retrieve the values
     String apiKey = props.getProperty("api_key");
     String apiSecretKey = props.getProperty("api_secret_key");
     String bearerToken = props.getProperty("bearer_token");
 
-    // Use the values in your code
-    System.out.println("API Key: " + apiKey);
-    System.out.println("API Secret Key: " + apiSecretKey);
-    System.out.println("Bearer Token: " + bearerToken);
+    // System.out.println("API Key: " + apiKey);
+    // System.out.println("API Secret Key: " + apiSecretKey);
+    // System.out.println("Bearer Token: " + bearerToken);
 
-    // TwitterApi apiInstance = new TwitterApi(new TwitterCredentialsBearer(System.getenv("AAAAAAAAAAAAAAAAAAAAAD26mQEAAAAAB4k8fymZdir8qK2uvh5xxwvIlwE%3DvN16pLFBzwUj1Gj1aAQK7HkmKRBGThXis33yMIVnUqEeoPuj4W")));
+    TwitterApi apiInstance = new TwitterApi(new TwitterCredentialsBearer(System.getenv(bearerToken)));
 
-    // Set<String> tweetFields = new HashSet<>();
-    // tweetFields.add("author_id");
-    // tweetFields.add("id");
-    // tweetFields.add("created_at");
+    Set<String> tweetFields = new HashSet<>();
+    tweetFields.add("author_id");
+    tweetFields.add("id");
+    tweetFields.add("created_at");
 
-    // try {
-    //  // findTweetById
-    //  Get2TweetsIdResponse result = apiInstance.tweets().findTweetById("1646217242651025410")
-    //   .tweetFields(tweetFields)
-    //   .execute();
-    //  if(result.getErrors() != null && result.getErrors().size() > 0) {
-    //    System.out.println("Error:");
+    try {
+     // findTweetById
+     Get2TweetsIdResponse result = apiInstance.tweets().findTweetById("1646217242651025410")
+      .tweetFields(tweetFields)
+      .execute();
+     if(result.getErrors() != null && result.getErrors().size() > 0) {
+       System.out.println("Error:");
 
-    //    result.getErrors().forEach(e -> {
-    //      System.out.println(e.toString());
-    //      if (e instanceof ResourceUnauthorizedProblem) {
-    //        System.out.println(((ResourceUnauthorizedProblem) e).getTitle() + " " + ((ResourceUnauthorizedProblem) e).getDetail());
-    //      }
-    //    });
-    //  } else {
-    //    System.out.println("findTweetById - Tweet Text: " + result.toString());
-    //  }
-    // } catch (ApiException e) {
-    //   System.err.println("Status code: " + e.getCode());
-    //   System.err.println("Reason: " + e.getResponseBody());
-    //   System.err.println("Response headers: " + e.getResponseHeaders());
-    //   e.printStackTrace();
-    // }
+       result.getErrors().forEach(e -> {
+         System.out.println(e.toString());
+         if (e instanceof ResourceUnauthorizedProblem) {
+           System.out.println(((ResourceUnauthorizedProblem) e).getTitle() + " " + ((ResourceUnauthorizedProblem) e).getDetail());
+         }
+       });
+     } else {
+       System.out.println("findTweetById - Tweet Text: " + result.toString());
+     }
+    } catch (ApiException e) {
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
   }
 
 }
